@@ -16,6 +16,8 @@ jobs:
       uses: bitovi/github-actions-deploy-eks@v0.1.2
       with:
         aws_default_region: us-east-1
+        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws_eks_cluster_admin_role_arn: arn:aws:iam::502845302465:role/GitHubActionsEKSAdmin
 
         tf_state_bucket_destroy: false
