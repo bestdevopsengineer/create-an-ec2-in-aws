@@ -1,5 +1,7 @@
 name: Advanced deploy
 on:
+  push:
+    branches: [main]
 
 
 jobs:
