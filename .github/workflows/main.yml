@@ -1,0 +1,34 @@
+name: Advanced deploy
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  Deploy-Cluster:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Create EKS Cluster
+      uses: bitovi/github-actions-deploy-eks@v0.1.2
+      with:
+        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws_default_region: us-east-1
+        aws_eks_cluster_admin_role_arn: arn:aws:iam::502845302465:role/GitHubActionsEKSAdmin
+        
+        # tf_stack_destroy: true
+        tf_state_bucket_destroy: true 
+  
+        aws_eks_environment: qa
+        aws_eks_stackname: qa-stack
+        aws_eks_cluster_version: 1.29
+        aws_eks_instance_type: t2.small
+
+        aws_eks_max_size: 5
+        aws_eks_min_size: 2
+        aws_eks_desired_capacity: 3
+
+        aws_eks_cidr_block: 10.0.0.0/16
+        aws_eks_availability_zones: "us-east-1a,us-east-1f,us-east-1c"
+        aws_eks_private_subnets: "10.0.1.0/24,10.0.2.0/24,10.0.3.0/24"
+        aws_eks_public_subnets: "10.0.11.0/24,10.0.12.0/24,10.0.13.0/24"
